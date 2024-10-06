@@ -14,7 +14,7 @@
           </q-item-section>
 
           <q-item-section side>
-            {{ currencify(entry.amount) }}
+            {{ useCurrencify(entry.amount) }}
           </q-item-section>
         </q-item>
       </q-list>
@@ -25,6 +25,7 @@
 <script setup>
 
   import { ref } from 'vue'
+  import { useCurrencify } from 'src/use/useCurrencify'
 
   const entries = ref([
     {
@@ -48,22 +49,5 @@
       amount: 0
     },
   ])
-
-  function currencify(amount) {
-    // format: "+ $ 4,999.99" | "- $ 999.0"
-
-    let posNegSymbol = ''
-    if (amount > 0) posNegSymbol = '+'
-    else if (amount < 0) posNegSymbol = '-'
-
-    const currencySymbol = '$',
-          amountPositive = Math.abs(amount),
-          amountFormatted = amountPositive.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          })
-
-    return `${ posNegSymbol } ${ currencySymbol } ${ amountFormatted }`;
-  }
 
 </script>
