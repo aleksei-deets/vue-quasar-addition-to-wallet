@@ -10,6 +10,7 @@
           :key="entry.id"
         >
           <q-item-section
+            class="text-weight-bold"
             :class="useAmountColorClass(entry.amount)"
           >
             {{ entry.name }}
@@ -17,6 +18,7 @@
 
           <q-item-section 
             side
+            class="text-weight-bold"
             :class="useAmountColorClass(entry.amount)"
           >
             {{ useCurrencify(entry.amount) }}
