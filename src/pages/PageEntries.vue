@@ -34,8 +34,11 @@
         <div class="col text-grey-7 text-h6">
           Balance
         </div>
-        <div class="col text-grey-7 text-h6 text-right">
-          + $3,999.00
+        <div
+          class="col text-h6 text-right"
+          :class="useAmountColorClass(balance)"
+        >
+          {{ useCurrencify(balance) }}
         </div>
       </div>
 
@@ -73,7 +76,7 @@
 
 <script setup>
 
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { useCurrencify } from 'src/use/useCurrencify'
   import { useAmountColorClass } from 'src/use/useAmountColorClass'
 
@@ -100,4 +103,22 @@
     },
   ])
 
+  const balance = computed(() => {
+    /*
+    let balance = 0
+    entries.value.forEach(entry => {
+      //console.log('entry: ', entry)
+      balance = balance + entry.amount
+    })
+    return balance
+    */
+
+    // 2 способ решения:
+    return entries.value.reduce((accumulator, { amount }) => {
+      //console.log('accumulator: ', accumulator)
+      //console.log('amount: ', amount)
+      return accumulator + amount
+    }, 0)
+  })
+  
 </script>
