@@ -10,20 +10,14 @@
           :key="entry.id"
         >
           <q-item-section
-            :class="[
-              { 'text-positive' : entry.amount > 0 },
-              { 'text-negative' : entry.amount < 0 }
-            ]"
+            :class="useAmountColorClass(entry.amount)"
           >
             {{ entry.name }}
           </q-item-section>
 
           <q-item-section 
             side
-            :class="[
-              { 'text-positive' : entry.amount > 0 },
-              { 'text-negative' : entry.amount < 0 }
-            ]"
+            :class="useAmountColorClass(entry.amount)"
           >
             {{ useCurrencify(entry.amount) }}
           </q-item-section>
@@ -37,6 +31,7 @@
 
   import { ref } from 'vue'
   import { useCurrencify } from 'src/use/useCurrencify'
+  import { useAmountColorClass } from 'src/use/useAmountColorClass'
 
   const entries = ref([
     {
