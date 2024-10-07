@@ -45,6 +45,7 @@
       <div class="row q-px-sm q-pb-sm q-col-gutter-sm bg-primary">
         <div class="col">
           <q-input 
+            v-model="addEntryForm.name"
             placeholder="Name"
             bg-color="white"
             outlined
@@ -53,6 +54,7 @@
         </div>
         <div class="col">
           <q-input
+            v-model="addEntryForm.amount"
             input-class="text-right"
             placeholder="Amount"
             bg-color="white"
@@ -76,7 +78,7 @@
 
 <script setup>
 
-  import { ref, computed } from 'vue'
+  import { ref, computed, reactive } from 'vue'
   import { useCurrencify } from 'src/use/useCurrencify'
   import { useAmountColorClass } from 'src/use/useAmountColorClass'
 
@@ -121,4 +123,9 @@
     }, 0)
   })
   
+  const addEntryForm = reactive({
+    name: '',
+    amount: null
+  })
+
 </script>
