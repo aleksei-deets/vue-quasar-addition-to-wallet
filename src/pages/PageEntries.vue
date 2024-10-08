@@ -127,20 +127,30 @@
       return accumulator + amount
     }, 0)
   })
-  
-  const addEntryForm = reactive({
+
+  const addEntryFormDefault = {
     name: '',
     amount: null
+  }
+  
+  const addEntryForm = reactive({
+    ...addEntryFormDefault
   })
 
+  const addEntryFormReset = () => {
+    Object.assign(addEntryForm, addEntryFormDefault)
+  }
+
   const addEntry = () => {
-    const newEntry = {
-      id: uid(),
-      name: addEntryForm.name,
-      amount: addEntryForm.amount
-    }
+    // const newEntry = {
+    //   id: uid(),
+    //   name: addEntryForm.name,
+    //   amount: addEntryForm.amount
+    // }
     //console.log('newEntry: ', newEntry)
+    const newEntry = Object.assign({}, addEntryForm, { id: uid() })
     entries.value.push(newEntry)
+    addEntryFormReset()
   }
 
 </script>
