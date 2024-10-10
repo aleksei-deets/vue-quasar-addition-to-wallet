@@ -9,7 +9,7 @@
         <q-slide-item 
           v-for="entry in entries"
           :key="entry.id"
-          @right="onRight"
+          @right="onEntrySlideRight"
           left-color="positive"
           right-color="negative"
         >
@@ -98,10 +98,19 @@
 <script setup>
 
   import { ref, computed, reactive } from 'vue'
-  import { uid } from 'quasar'
+  import { uid, useQuasar } from 'quasar'
   import { useCurrencify } from 'src/use/useCurrencify'
   import { useAmountColorClass } from 'src/use/useAmountColorClass'
 
+  /*
+    Quasar
+  */
+
+  const $q = useQuasar()
+
+  /*
+    Data: Entries
+  */
   const entries = ref([
     {
       id: 'id0',
@@ -125,6 +134,10 @@
     },
   ])
 
+  /*
+    Balance
+  */
+
   const balance = computed(() => {
     /*
     let balance = 0
@@ -142,6 +155,10 @@
       return accumulator + amount
     }, 0)
   })
+
+  /*
+    Add entry
+  */
 
   const nameRef = ref(null)
 
@@ -169,6 +186,33 @@
     const newEntry = Object.assign({}, addEntryForm, { id: uid() })
     entries.value.push(newEntry)
     addEntryFormReset()
+  }
+
+  /*
+    Slide items
+  */
+
+  const onEntrySlideRight = ({ reset }) => {
+    //console.log('right')
+    $q.dialog({
+        title: 'Delete entry',
+        message: 'Delete this entry?',
+        cancel: true,
+        persistent: true,
+        ok: {
+          label: 'Delete',
+          color: 'negative',
+          noCaps: true
+        },
+        cancel: {
+          color: 'primary',
+          noCaps: true
+        },
+      }).onOk(() => {
+        // console.log('>>>> OK')
+      }).onCancel(() => {
+        reset()
+      })
   }
 
 </script>
