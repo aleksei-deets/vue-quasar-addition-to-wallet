@@ -9,7 +9,7 @@
         <q-slide-item 
           v-for="entry in entries"
           :key="entry.id"
-          @right="onEntrySlideRight"
+          @right="onEntrySlideRight($event, entry.id)"
           left-color="positive"
           right-color="negative"
         >
@@ -192,7 +192,7 @@
     Slide items
   */
 
-  const onEntrySlideRight = ({ reset }) => {
+  const onEntrySlideRight = ({ reset }, entryId) => {
     //console.log('right')
     $q.dialog({
         title: 'Delete entry',
@@ -209,10 +209,20 @@
           noCaps: true
         },
       }).onOk(() => {
-        // console.log('>>>> OK')
+        deleteEntry(entryId)
       }).onCancel(() => {
         reset()
       })
+  }
+
+  /*
+    Delete entry
+  */
+
+  const deleteEntry = entryId => {
+    const index = entries.value.findIndex(entry => entry.id === entryId)
+    //console.log('index: ', index)
+    entries.value.splice(index, 1)
   }
 
 </script>
