@@ -50,9 +50,9 @@
         </div>
         <div
           class="col text-h6 text-right"
-          :class="useAmountColorClass(balance)"
+          :class="useAmountColorClass(storeEntries.balance)"
         >
-          {{ useCurrencify(balance) }}
+          {{ useCurrencify(storeEntries.balance) }}
         </div>
       </div>
 
@@ -114,28 +114,6 @@
   */
 
   const $q = useQuasar()
-
-  /*
-    Balance
-  */
-
-  const balance = computed(() => {
-    /*
-    let balance = 0
-    entries.value.forEach(entry => {
-      //console.log('entry: ', entry)
-      balance = balance + entry.amount
-    })
-    return balance
-    */
-
-    // 2 способ решения:
-    return entries.value.reduce((accumulator, { amount }) => {
-      //console.log('accumulator: ', accumulator)
-      //console.log('amount: ', amount)
-      return accumulator + amount
-    }, 0)
-  })
 
   /*
     Add entry
