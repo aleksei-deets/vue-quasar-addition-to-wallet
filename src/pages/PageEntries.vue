@@ -7,7 +7,7 @@
       >
 
         <q-slide-item 
-          v-for="entry in entries"
+          v-for="entry in storeEntries.entries"
           :key="entry.id"
           @right="onEntrySlideRight($event, entry)"
           left-color="positive"
@@ -99,40 +99,21 @@
 
   import { ref, computed, reactive } from 'vue'
   import { uid, useQuasar } from 'quasar'
+  import { useStoreEntries } from 'src/stores/storeEntries'
   import { useCurrencify } from 'src/use/useCurrencify'
   import { useAmountColorClass } from 'src/use/useAmountColorClass'
+
+  /*
+    Stores
+  */
+
+  const storeEntries = useStoreEntries()
 
   /*
     Quasar
   */
 
   const $q = useQuasar()
-
-  /*
-    Data: Entries
-  */
-  const entries = ref([
-    {
-      id: 'id0',
-      name: 'Salary',
-      amount: 4999.99
-    },
-    {
-      id: 'id1',
-      name: 'Rent',
-      amount: -999
-    },
-    {
-      id: 'id2',
-      name: 'Phone',
-      amount: -14.99
-    },
-    {
-      id: 'id3',
-      name: 'Unknown',
-      amount: 0
-    },
-  ])
 
   /*
     Balance
