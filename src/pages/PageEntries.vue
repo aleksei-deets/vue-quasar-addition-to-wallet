@@ -229,6 +229,10 @@
     const index = entries.value.findIndex(entry => entry.id === entryId)
     //console.log('index: ', index)
     entries.value.splice(index, 1)
+    $q.notify({
+      message: 'Entry deleted',
+      position: 'top'
+    })
   }
 
 </script>
