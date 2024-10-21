@@ -97,7 +97,7 @@
 
 <script setup>
 
-  import { ref, computed, reactive } from 'vue'
+  import { ref, reactive } from 'vue'
   import { useQuasar } from 'quasar'
   import { useStoreEntries } from 'src/stores/storeEntries'
   import { useCurrencify } from 'src/use/useCurrencify'
@@ -137,6 +137,7 @@
 
   const addEntryFormSubmit = () => {
     storeEntries.addEntry(addEntryForm)
+    addEntryFormReset()
   }
 
   /*
