@@ -45,53 +45,19 @@
       class="bg-transparent"
     >
       <Balance />
-      <q-form 
-        @submit="addEntryFormSubmit"
-        class="row q-px-sm q-pb-sm q-col-gutter-sm bg-primary"
-      >
-        <div class="col">
-          <q-input 
-            v-model="addEntryForm.name"
-            ref="nameRef"
-            placeholder="Name"
-            bg-color="white"
-            outlined
-            dense
-          />
-        </div>
-        <div class="col">
-          <q-input
-            v-model.number="addEntryForm.amount"
-            input-class="text-right"
-            placeholder="Amount"
-            bg-color="white"
-            type="number"
-            step="0.01"
-            outlined
-            dense
-          />
-        </div>
-        <div class="col col-auto">
-          <q-btn 
-            color="primary"
-            icon="add"
-            type="submit"
-            round
-          />
-        </div>
-      </q-form>
+      <AddEntry />
     </q-footer>
   </q-page>
 </template>
 
 <script setup>
 
-  import { ref, reactive } from 'vue'
   import { useQuasar } from 'quasar'
   import { useStoreEntries } from 'src/stores/storeEntries'
   import { useCurrencify } from 'src/use/useCurrencify'
   import { useAmountColorClass } from 'src/use/useAmountColorClass'
   import Balance from 'src/components/Entries/Balance.vue'
+  import AddEntry from 'src/components/Entries/AddEntry.vue'
 
   /*
     Stores
@@ -104,31 +70,6 @@
   */
 
   const $q = useQuasar()
-
-  /*
-    Add entry
-  */
-
-  const nameRef = ref(null)
-
-  const addEntryFormDefault = {
-    name: '',
-    amount: null
-  }
-  
-  const addEntryForm = reactive({
-    ...addEntryFormDefault
-  })
-
-  const addEntryFormReset = () => {
-    Object.assign(addEntryForm, addEntryFormDefault)
-    nameRef.value.focus()
-  }
-
-  const addEntryFormSubmit = () => {
-    storeEntries.addEntry(addEntryForm)
-    addEntryFormReset()
-  }
 
   /*
     Slide items
