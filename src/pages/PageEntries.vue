@@ -1,7 +1,13 @@
 <template>
   <q-page>
     <div class="q-pa-md">
+
+      <NothingHere
+        v-if="!storeEntries.entries.length"
+      />
+
       <q-list
+        v-else
         bordered
         separator
       >
@@ -28,6 +34,7 @@ import { useStoreEntries } from 'src/stores/storeEntries'
 import Balance from 'src/components/Entries/Balance.vue'
 import AddEntry from 'src/components/Entries/AddEntry.vue'
 import Entry from 'src/components/Entries/Entry.vue'
+import NothingHere from 'src/components/Entries/NothingHere.vue'
 
 const storeEntries = useStoreEntries()
 
