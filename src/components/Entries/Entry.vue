@@ -19,6 +19,8 @@
 				{{ entry.name }}
 				<!-- in <q-popup-edit> component use :model-value instead v-model. 
 							To prevent the possibility of changing the data in the Pinia store. -->
+				<!-- To Fix issue with offset style prop in QPopupEdit component
+							added cover position prop, and set that to "false". -->
 				<q-popup-edit 
 					style="opacity: 0.5"
 					:model-value="entry.name"
@@ -26,6 +28,7 @@
 					v-slot="scope"
 					anchor="top left"
 					:offset="[16, 12]"
+					:cover="false"
 				>	
         	<q-input 
 						v-model="scope.value" 
