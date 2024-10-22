@@ -17,6 +17,25 @@
 				:class="useAmountColorClass(entry.amount)"
 			>
 				{{ entry.name }}
+				<!-- in <q-popup-edit> component use :model-value instead v-model. 
+							To prevent the possibility of changing the data in the Pinia store. -->
+				<q-popup-edit 
+					style="opacity: 0.5"
+					:model-value="entry.name"
+					auto-save 
+					v-slot="scope"
+					anchor="top left"
+					:offset="[16, 12]"
+				>	
+        	<q-input 
+						v-model="scope.value" 
+						dense 
+						autofocus 
+						counter 
+						@keyup.enter="scope.set" 
+						input-class="text-weight-bold"
+					/>
+      	</q-popup-edit>
 			</q-item-section>
 
 			<q-item-section 
