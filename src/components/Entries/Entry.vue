@@ -22,19 +22,19 @@
 				<!-- To Fix issue with offset style prop in QPopupEdit component
 							added cover position prop, and set that to "false". -->
 				<q-popup-edit 
-					style="opacity: 0.5"
 					:model-value="entry.name"
 					auto-save 
 					v-slot="scope"
 					anchor="top left"
 					:offset="[16, 12]"
 					:cover="false"
-				>	
+					buttons
+					label-set="Ok"
+				>
         	<q-input 
 						v-model="scope.value" 
 						dense 
 						autofocus 
-						counter 
 						@keyup.enter="scope.set" 
 						input-class="text-weight-bold letter-spacing-none"
 					/>
