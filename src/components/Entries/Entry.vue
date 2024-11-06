@@ -36,7 +36,7 @@
 						autofocus 
 						counter 
 						@keyup.enter="scope.set" 
-						input-class="text-weight-bold"
+						input-class="text-weight-bold letter-spacing-none"
 					/>
       	</q-popup-edit>
 			</q-item-section>
