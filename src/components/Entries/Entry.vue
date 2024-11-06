@@ -47,6 +47,24 @@
 				:class="useAmountColorClass(entry.amount)"
 			>
 				{{ useCurrencify(entry.amount) }}
+				<q-popup-edit 
+					:model-value="entry.amount"
+					auto-save 
+					v-slot="scope"
+					anchor="top left"
+					:offset="[16, 12]"
+					:cover="false"
+					buttons
+					label-set="Ok"
+				>
+        	<q-input 
+						v-model="scope.value" 
+						dense 
+						autofocus 
+						@keyup.enter="scope.set" 
+						input-class="text-weight-bold letter-spacing-none text-right"
+					/>
+      	</q-popup-edit>
 			</q-item-section>
 		</q-item>
 
