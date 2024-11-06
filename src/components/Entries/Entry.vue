@@ -58,11 +58,13 @@
 					label-set="Ok"
 				>
         	<q-input 
-						v-model="scope.value" 
+						v-model.number="scope.value" 
 						dense 
 						autofocus 
 						@keyup.enter="scope.set" 
 						input-class="text-weight-bold letter-spacing-none text-right"
+						type="number"
+						step="0.01"
 					/>
       	</q-popup-edit>
 			</q-item-section>
