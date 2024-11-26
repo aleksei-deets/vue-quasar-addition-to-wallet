@@ -22,6 +22,7 @@
 				<!-- To Fix issue with offset style prop in QPopupEdit component
 							added cover position prop, and set that to "false". -->
 				<q-popup-edit 
+					@save="onNameUpdate"
 					:model-value="entry.name"
 					auto-save 
 					v-slot="scope"
@@ -48,6 +49,7 @@
 			>
 				{{ useCurrencify(entry.amount) }}
 				<q-popup-edit 
+					@save="onAmountUpdate"
 					:model-value="entry.amount"
 					auto-save 
 					v-slot="scope"
@@ -119,6 +121,23 @@ const onEntrySlideRight = ({ reset }) => {
 		}).onCancel(() => {
 			reset()
 		})
+}
+
+
+/*
+	name & amount update
+
+	Created 2 methods to ensure that the name and amount are updated correctly, 
+	keeping the desired type: 
+	for the name it is a string, and for the amount it is a number.
+*/
+
+const onNameUpdate = value => {
+	storeEntries.updateEntry(props.entry.id, { name: value })
+}
+
+const onAmountUpdate = value => {
+	storeEntries.updateEntry(props.entry.id, { amount: value })
 }
 
 </script>
