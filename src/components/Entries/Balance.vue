@@ -1,5 +1,5 @@
 <template>
-	<div class="row q-mb-sm q-px-md q-py-sm shadow-up-3">
+	<div class="row q-mb-sm q-px-md q-py-sm shadow-up-3 items-center">
 		<div class="col text-grey-7 text-h6">
 			Balance
 		</div>
