@@ -13,14 +13,17 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div 
+				v-if="storeEntries.balancePaid"
+				class="row"
+			>
 				<div class="col text-caption text-grey-6">
 					Paid:
 					<span 
 						class="text-weight-bold"
-						:class="useAmountColorClass(1234.99)"
+						:class="useAmountColorClass(storeEntries.balancePaid)"
 					>
-						{{ useCurrencify(1234.99) }}
+						{{ useCurrencify(storeEntries.balancePaid) }}
 					</span>
 				</div>
 			</div>
