@@ -4,6 +4,7 @@
 		@right="onEntrySlideRight"
 		left-color="positive"
 		right-color="negative"
+		:class="{ 'bg-grey-2' : entry.paid }"
 	>
 		<template v-slot:left>
 			<q-icon name="done" />
@@ -15,7 +16,10 @@
 		<q-item>
 			<q-item-section
 				class="text-weight-bold"
-				:class="useAmountColorClass(entry.amount)"
+				:class="[
+					useAmountColorClass(entry.amount),
+					{ 'text-strike' : entry.paid }
+				]"
 			>
 				{{ entry.name }}
 				<!-- in <q-popup-edit> component use :model-value instead v-model. 
@@ -46,7 +50,10 @@
 			<q-item-section 
 				side
 				class="text-weight-bold"
-				:class="useAmountColorClass(entry.amount)"
+				:class="[
+					useAmountColorClass(entry.amount),
+					{ 'text-strike' : entry.paid }
+				]"
 			>
 				{{ useCurrencify(entry.amount) }}
 				<q-popup-edit 
