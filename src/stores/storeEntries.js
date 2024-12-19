@@ -8,22 +8,26 @@ export const useStoreEntries = defineStore('entries', () => {
     {
       id: 'id0',
       name: 'Salary',
-      amount: 4999.99
+      amount: 4999.99,
+			paid: false
     },
     {
       id: 'id1',
       name: 'Rent',
-      amount: -999
+      amount: -999,
+			paid: false
     },
     {
       id: 'id2',
       name: 'Phone',
-      amount: -14.99
+      amount: -14.99,
+			paid: false
     },
     {
       id: 'id3',
       name: 'Unknown',
-      amount: 0
+      amount: 0,
+			paid: false
     },
   ])
 
@@ -52,7 +56,7 @@ export const useStoreEntries = defineStore('entries', () => {
     //   amount: addEntryForm.amount
     // }
     //console.log('newEntry: ', newEntry)
-		const newEntry = Object.assign({}, addEntryForm, { id: uid() })
+		const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false })
 		entries.value.push(newEntry)
 	}
 
