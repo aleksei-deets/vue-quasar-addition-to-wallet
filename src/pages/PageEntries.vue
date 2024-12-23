@@ -11,11 +11,20 @@
         bordered
         separator
       >
-        <Entry
-          v-for="entry in storeEntries.entries"
-          :key="entry.id"
-          :entry="entry"
-        />
+
+				<Sortable
+					:list="storeEntries.entries"
+					item-key="id"
+					tag="div"
+				>
+					<template #item="{element, index}">
+						<Entry
+							:key="element.id"
+							:entry="element"
+						/>
+					</template>
+				</Sortable>
+
       </q-list>
     </div>
 
@@ -29,7 +38,7 @@
 </template>
 
 <script setup>
-
+import { Sortable } from 'sortablejs-vue3'
 import { useStoreEntries } from 'src/stores/storeEntries'
 import Balance from 'src/components/Entries/Balance.vue'
 import AddEntry from 'src/components/Entries/AddEntry.vue'
