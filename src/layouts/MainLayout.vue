@@ -22,6 +22,7 @@
 					flat
 					no-caps
 					dense
+					v-if="$route.fullPath === '/'"
 					@click="storeEntries.options.sort = !storeEntries.options.sort"
 					:label="!storeEntries.options.sort ? 'Sort' : 'Done'"
 				/>
