@@ -1,6 +1,14 @@
-# Moneyballs (vue-quasar-moneyballs)
+# Vue 3 Quasar App addition to wallet 
 
-A Quasar Project
+Web application that allows users to plan and calculate expenses. Users can customize the details.
+
+
+## Tech Stack
+
+- Vue 3
+- Quasar Framework
+- Pinia state management
+
 
 ## Install the dependencies
 ```bash
