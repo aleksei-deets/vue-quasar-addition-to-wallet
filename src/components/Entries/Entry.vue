@@ -53,10 +53,13 @@
 				class="text-weight-bold"
 				:class="[
 					useAmountColorClass(entry.amount),
-					{ 'text-strike' : entry.paid }
 				]"
 			>
-				{{ useCurrencify(entry.amount) }}
+        <span
+          :class="{ 'text-strike' : entry.paid }"
+        >
+          {{ useCurrencify(entry.amount) }}
+        </span>
 				<q-popup-edit 
 					@save="onAmountUpdate"
 					:model-value="entry.amount"
@@ -79,6 +82,16 @@
 						v-select-all
 					/>
       	</q-popup-edit>
+        <q-chip
+          v-if="storeSettings.settings.showRunningBalance"
+          :class="useAmountColorClass(12.58)"
+          class="running-balance absolute-bottom-right"
+          size="9px"
+          icon="event"
+          dense
+        >
+          {{ useCurrencify(12.58) }}
+        </q-chip>
 			</q-item-section>
 
 			<q-item-section
