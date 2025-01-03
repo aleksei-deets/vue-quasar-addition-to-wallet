@@ -100,11 +100,13 @@
 
 import { useQuasar } from 'quasar'
 import { useStoreEntries } from 'src/stores/storeEntries'
+import { useStoreSettings } from 'src/stores/storeSettings'
 import { useCurrencify } from 'src/use/useCurrencify'
 import { useAmountColorClass } from 'src/use/useAmountColorClass'
 import vSelectAll from 'src/directives/directiveSelectAll'
 
-const storeEntries = useStoreEntries()
+const storeEntries = useStoreEntries(),
+      storeSettings = useStoreSettings()
 
 const props = defineProps({
 	entry: {
@@ -122,32 +124,41 @@ const onEntrySlideLeft = ({ reset }) => {
 
 const onEntrySlideRight = ({ reset }) => {
 	//console.log('right')
-	$q.dialog({
-			title: 'Delete entry',
-			message: `
-				Delete this entry?
-				<div class="q-mt-md text-weight-bold ${ useAmountColorClass(props.entry.amount) }">
-					${ props.entry.name } : ${ useCurrencify(props.entry.amount) } 
-				</div>
-			`,
-			cancel: true,
-			persistent: true,
-			html: true,
-			ok: {
-				label: 'Delete',
-				color: 'negative',
-				noCaps: true
-			},
-			cancel: {
-				color: 'primary',
-				noCaps: true
-			},
-		}).onOk(() => {
-			storeEntries.deleteEntry(props.entry.id)
-		}).onCancel(() => {
-			reset()
-		})
+  if (storeSettings.settings.promptToDelete) promptToDelete(reset)
+  else storeEntries.deleteEntry(props.entry.id)
 }
+
+const promptToDelete = reset => {
+  $q.dialog({
+    title: "Delete entry",
+    message: `
+      Delete this entry?
+      <div class="q-mt-md text-weight-bold ${useAmountColorClass(
+        props.entry.amount
+      )}">
+        ${props.entry.name} : ${useCurrencify(props.entry.amount)} 
+      </div>
+    `,
+    cancel: true,
+    persistent: true,
+    html: true,
+    ok: {
+      label: "Delete",
+      color: "negative",
+      noCaps: true,
+    },
+    cancel: {
+      color: "primary",
+      noCaps: true,
+    },
+  })
+    .onOk(() => {
+      storeEntries.deleteEntry(props.entry.id);
+    })
+    .onCancel(() => {
+      reset();
+    });
+};
 
 
 /*
