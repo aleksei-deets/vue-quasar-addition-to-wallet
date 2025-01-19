@@ -4,7 +4,10 @@
 		@right="onEntrySlideRight"
 		left-color="positive"
 		right-color="negative"
-		:class="{ 'bg-grey-2' : entry.paid }"
+		:class="[
+		  { 'bg-grey-2' : entry.paid && !$q.dark.isActive },
+		  { 'bg-grey-9' : entry.paid && $q.dark.isActive }
+		]"
 	>
 		<template v-slot:left>
 			<q-icon name="done" />

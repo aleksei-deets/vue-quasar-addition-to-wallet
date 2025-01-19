@@ -14,7 +14,7 @@ export const useStoreSettings = defineStore('settings', () => {
   watch(() => settings.darkMode, value => {
     //console.log('value : ', value)
     Dark.set(value)
-  })
+  }, { immediate: true })
 
   return { 
 		settings
