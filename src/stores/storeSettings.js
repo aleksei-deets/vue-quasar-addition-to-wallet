@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive, watch } from 'vue'
-import { Dark } from 'quasar'
+import { Dark, LocalStorage } from 'quasar'
 
 export const useStoreSettings = defineStore('settings', () => {
 
@@ -8,13 +8,21 @@ export const useStoreSettings = defineStore('settings', () => {
 		promptToDelete: true,
 		showRunningBalance: false,
 		currencySymbol: '$',
-		darkMode: false
+		darkMode: false	// false | true | "auto"
 	})
 
   watch(() => settings.darkMode, value => {
-    //console.log('value : ', value)
+    // console.log('value : ', value)
     Dark.set(value)
   }, { immediate: true })
+
+  watch(settings, () => {
+    saveSettings()
+  })
+
+  const saveSettings = () => {
+    LocalStorage.set('settings', settings)
+  }
 
   return { 
 		settings
