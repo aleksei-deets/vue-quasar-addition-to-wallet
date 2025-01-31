@@ -24,7 +24,17 @@ export const useStoreSettings = defineStore('settings', () => {
     LocalStorage.set('settings', settings)
   }
 
-  return { 
-		settings
-	}
+  const loadSettings = () => {
+    const savedSettings = LocalStorage.getItem('settings')
+    if (savedSettings) Object.assign(settings, savedSettings)
+  }
+
+  return {
+
+    // state
+    settings,
+
+    // actions
+    loadSettings
+  }
 })
