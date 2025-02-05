@@ -3,10 +3,9 @@
   "version": "0.0.1",
   "description": "A Quasar Project",
   "productName": "Moneyballs",
-  "author": "Aleks Deets",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0",
+    "icons": "icongenie generate -i app-icon.png --skip-trim",
     "dev": "quasar dev",
     "build": "quasar build"
   },
