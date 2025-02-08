@@ -12,11 +12,11 @@ defineOptions({
 });
 
 const storeSettings = useStoreSettings(),
-      useStoreEntries = useStoreEntries()
+      storeEntries = useStoreEntries()
 
 onMounted(() => {
   storeSettings.loadSettings()
-  useStoreEntries.loadEntries()
+  storeEntries.loadEntries()
 })
 
 window.addEventListener('contextmenu', e => {
