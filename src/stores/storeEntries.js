@@ -1,39 +1,36 @@
 import { defineStore } from 'pinia'
-import { ref, reactive, computed , watch, nextTick } from 'vue'
-import { uid, Notify, LocalStorage } from 'quasar'
+import { ref, reactive, computed, nextTick } from 'vue'
+import { uid, Notify } from 'quasar'
+import { db } from 'src/firebase/firebase'
 
 export const useStoreEntries = defineStore('entries', () => {
 
 	const entries = ref([
-    {
-      id: 'id0',
-      name: 'Salary',
-      amount: 4999.99,
-			paid: false
-    },
-    {
-      id: 'id1',
-      name: 'Rent',
-      amount: -999,
-			paid: false
-    },
-    {
-      id: 'id2',
-      name: 'Phone',
-      amount: -14.99,
-			paid: false
-    },
-    {
-      id: 'id3',
-      name: 'Unknown',
-      amount: 0,
-			paid: false
-    },
+    // {
+    //   id: 'id0',
+    //   name: 'Salary',
+    //   amount: 4999.99,
+    //   paid: false
+    // },
+    // {
+    //   id: 'id1',
+    //   name: 'Rent',
+    //   amount: -999,
+    //   paid: false
+    // },
+    // {
+    //   id: 'id2',
+    //   name: 'Phone',
+    //   amount: -14.99,
+    //   paid: false
+    // },
+    // {
+    //   id: 'id3',
+    //   name: 'Unknown',
+    //   amount: 0,
+    //   paid: false
+    // },
   ])
-
-  watch(entries.value, () => {
-    saveEntries()
-  })
 
 	const options = reactive({
 		sort: false
@@ -78,6 +75,11 @@ export const useStoreEntries = defineStore('entries', () => {
     return runningBalances
   })
 
+  const loadEntries = () => {
+    // const savedEntries = LocalStorage.getItem('entries')
+    // if (savedEntries) Object.assign(entries.value, savedEntries)
+  }
+
 	const addEntry = addEntryForm => {
 		// const newEntry = {
     //   id: uid(),
@@ -110,16 +112,6 @@ export const useStoreEntries = defineStore('entries', () => {
 		entries.value.splice(oldIndex, 1)
 		entries.value.splice(newIndex, 0, movedEntry)
 	}
-
-  const saveEntries = () => {
-    LocalStorage.set('entries', entries.value)
-  }
-
-  const loadEntries = () => {
-    const savedEntries = LocalStorage.getItem('entries')
-    if (savedEntries) Object.assign(entries.value, savedEntries)
-  }
-
 
 
 	/*
@@ -155,11 +147,11 @@ export const useStoreEntries = defineStore('entries', () => {
 		runningBalances,
 		
 		// actions
+		loadEntries,
 		addEntry,
 		deleteEntry,
 		updateEntry,
 		sortEnd,
-		loadEntries
 	}
 
 })
