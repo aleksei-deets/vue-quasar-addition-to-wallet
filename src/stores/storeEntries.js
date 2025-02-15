@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, computed, nextTick } from 'vue'
 import { uid, Notify } from 'quasar'
+import { collection, getDocs } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
 export const useStoreEntries = defineStore('entries', () => {
@@ -75,9 +76,13 @@ export const useStoreEntries = defineStore('entries', () => {
     return runningBalances
   })
 
-  const loadEntries = () => {
-    // const savedEntries = LocalStorage.getItem('entries')
-    // if (savedEntries) Object.assign(entries.value, savedEntries)
+  const loadEntries = async () => {
+    const querySnapshot = await getDocs(collection(db, 'entries'))
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      let entry = doc.data()
+      entries.value.push(entry)
+    })
   }
 
 	const addEntry = addEntryForm => {
