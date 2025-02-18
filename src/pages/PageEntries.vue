@@ -1,36 +1,51 @@
 <template>
   <q-page>
     <div class="q-pa-md">
-		
-			<transition
-				appear
-				enter-active-class="animated jackInTheBox slower"
-			>
-				<NothingHere
-					v-if="!storeEntries.entries.length"
-				/>
-			</transition>
-
-      <q-list
-        v-if="storeEntries.entries.length"
-				class="entries"
+      <template
+        v-if="storeEntries.entriesLoaded"
       >
-				<Sortable
-					@end="storeEntries.sortEnd"
-					:list="storeEntries.entries"
-					:options="{ handle: '.handle' }"
-					item-key="id"
-					tag="div"
-				>
-					<template #item="{element, index}">
-						<Entry
-							:key="element.id"
-							:entry="element"
-							:index="index"
-						/>
-					</template>
-				</Sortable>
-      </q-list>
+      
+        <transition
+          appear
+          enter-active-class="animated jackInTheBox slower"
+        >
+          <NothingHere
+            v-if="!storeEntries.entries.length"
+          />
+        </transition>
+      
+        <q-list
+          v-if="storeEntries.entries.length"
+          class="entries"
+        >
+          <Sortable
+            @end="storeEntries.sortEnd"
+            :list="storeEntries.entries"
+            :options="{ handle: '.handle' }"
+            item-key="id"
+            tag="div"
+          >
+            <template #item="{element, index}">
+              <Entry
+                :key="element.id"
+                :entry="element"
+                :index="index"
+              />
+            </template>
+          </Sortable>
+        </q-list>
+      </template>
+      
+      <div
+        v-else
+        class="text-center q-pa-xl"
+      >
+        <q-spinner
+          color="primary"
+          size="3em"
+          :thickness="10"
+        />
+      </div>
     </div>
 
     <q-footer class="bg-transparent">

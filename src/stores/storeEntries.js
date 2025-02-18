@@ -33,6 +33,8 @@ export const useStoreEntries = defineStore('entries', () => {
     // },
   ])
 
+  const entriesLoaded = ref(false)
+
 	const options = reactive({
 		sort: false
 	})
@@ -85,12 +87,16 @@ export const useStoreEntries = defineStore('entries', () => {
     // })
 
     onSnapshot(collection(db, 'entries'), (querySnapshot) => {
+      entriesLoaded.value = false
       let entriesFB = []
       querySnapshot.forEach((doc) => {
         let entry = doc.data()
         entriesFB.value.push(entry)
       })
-      entries.value = entriesFB
+      setTimeout(() => {
+        entries.value = entriesFB
+        entriesLoaded.value = true
+      }, 1000)
     })
   }
 
@@ -153,6 +159,7 @@ export const useStoreEntries = defineStore('entries', () => {
 		
 		// state
 		entries,
+		entriesLoaded,
 		options,
 		
 		// getters
