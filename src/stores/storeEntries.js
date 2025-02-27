@@ -4,6 +4,8 @@ import { uid, Notify } from 'quasar'
 import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
+const entriesCollectionRef = collection(db, 'entries')
+
 export const useStoreEntries = defineStore('entries', () => {
 
 	const entries = ref([
@@ -79,19 +81,12 @@ export const useStoreEntries = defineStore('entries', () => {
   })
 
   const loadEntries = async () => {
-    // const querySnapshot = await getDocs(collection(db, 'entries'))
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   let entry = doc.data()
-    //   entries.value.push(entry)
-    // })
-
-    onSnapshot(collection(db, 'entries'), (querySnapshot) => {
+    onSnapshot(entriesCollectionRef, (querySnapshot) => {
       entriesLoaded.value = false
       let entriesFB = []
       querySnapshot.forEach((doc) => {
         let entry = doc.data()
-        entriesFB.value.push(entry)
+        entriesFB.push(entry)
       })
       setTimeout(() => {
         entries.value = entriesFB
@@ -102,8 +97,8 @@ export const useStoreEntries = defineStore('entries', () => {
 
   const addEntry = async addEntryForm => {
     const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false })
-    //entries.value.push(newEntry)
-    await setDoc(doc(db, 'entries', newEntry.id), newEntry)
+    if (newEntry.amount === null) newEntry.amount = 0
+    await setDoc(doc(entriesCollectionRef, newEntry.id), newEntry)
   }
 
 	const deleteEntry = entryId => {
