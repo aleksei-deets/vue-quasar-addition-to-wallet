@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, computed, nextTick } from 'vue'
 import { uid, Notify } from 'quasar'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
 export const useStoreEntries = defineStore('entries', () => {
@@ -100,16 +100,11 @@ export const useStoreEntries = defineStore('entries', () => {
     })
   }
 
-	const addEntry = addEntryForm => {
-		// const newEntry = {
-    //   id: uid(),
-    //   name: addEntryForm.name,
-    //   amount: addEntryForm.amount
-    // }
-    //console.log('newEntry: ', newEntry)
-		const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false })
-		entries.value.push(newEntry)
-	}
+  const addEntry = async addEntryForm => {
+    const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false })
+    //entries.value.push(newEntry)
+    await setDoc(doc(db, 'entries', newEntry.id), newEntry)
+  }
 
 	const deleteEntry = entryId => {
     const index = getEntryIndexById(entryId)
