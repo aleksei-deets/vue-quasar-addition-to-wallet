@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, computed, nextTick } from 'vue'
-import { uid, Notify } from 'quasar'
-import { collection, onSnapshot, doc, setDoc } from 'firebase/firestore'
+import { Notify } from 'quasar'
+import { collection, onSnapshot, addDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
 const entriesCollectionRef = collection(db, 'entries')
@@ -86,6 +86,7 @@ export const useStoreEntries = defineStore('entries', () => {
       let entriesFB = []
       querySnapshot.forEach((doc) => {
         let entry = doc.data()
+        entry.id = doc.id
         entriesFB.push(entry)
       })
       setTimeout(() => {
@@ -96,9 +97,9 @@ export const useStoreEntries = defineStore('entries', () => {
   }
 
   const addEntry = async addEntryForm => {
-    const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false })
+    const newEntry = Object.assign({}, addEntryForm, { paid: false })
     if (newEntry.amount === null) newEntry.amount = 0
-    await setDoc(doc(entriesCollectionRef, newEntry.id), newEntry)
+    await addDoc(entriesCollectionRef, newEntry)
   }
 
 	const deleteEntry = entryId => {
