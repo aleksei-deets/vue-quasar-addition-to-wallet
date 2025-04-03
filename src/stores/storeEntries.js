@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, computed, nextTick } from 'vue'
 import { Notify } from 'quasar'
-import { collection, onSnapshot, addDoc, doc, deleteDoc } from 'firebase/firestore'
+import { collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
 const entriesCollectionRef = collection(db, 'entries')
@@ -111,10 +111,9 @@ export const useStoreEntries = defineStore('entries', () => {
     })
   }
 
-	const updateEntry = (entryId, updates) => {
-		const index = getEntryIndexById(entryId)
-		Object.assign(entries.value[index], updates)
-	}
+  const updateEntry = async (entryId, updates) => {
+    await updateDoc(doc(entriesCollectionRef, entryId), updates)
+  }
 
 	const sortEnd = ({ oldIndex, newIndex }) => {
 		const movedEntry = entries.value[oldIndex]
