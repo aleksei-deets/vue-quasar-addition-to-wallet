@@ -13,7 +13,7 @@
             v-if="!storeEntries.entries.length"
           />
         </transition>
-      
+        
         <q-list
           v-if="storeEntries.entries.length"
           class="entries"
@@ -28,8 +28,8 @@
             <template #item="{element, index}">
               <Entry
                 :key="element.id"
-                :entry="element"
                 :index="index"
+                :entry="element"
               />
             </template>
           </Sortable>
@@ -49,13 +49,13 @@
     </div>
 
     <q-footer class="bg-transparent">
-			<transition
-				appear
-				enter-active-class="animated fadeInUp"
-				leave-active-class="animated fadeOutDown"
-			>
-      	<Balance v-if="storeEntries.entries.length" />
-			</transition>
+      <transition
+        appear
+        enter-active-class="animated fadeInUp"
+        leave-active-class="animated fadeOutDown"
+      >
+        <Balance v-if="storeEntries.entries.length" />
+      </transition>
       <AddEntry />
     </q-footer>
   </q-page>

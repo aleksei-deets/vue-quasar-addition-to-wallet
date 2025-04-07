@@ -5,53 +5,52 @@
     >
       <q-toolbar>
         <q-btn
-          flat
-          dense
-          round
+          @click="toggleLeftDrawer"
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer"
+          dense
+          flat
+          round
         />
-
+        
         <q-toolbar-title>
           <div class="absolute-center">
             <q-icon name="savings" />
             Moneyballs {{ $q.version }}
           </div>
         </q-toolbar-title>
-
-				<q-btn
-					flat
-					no-caps
-					dense
-					v-if="$route.fullPath === '/'"
-					@click="storeEntries.options.sort = !storeEntries.options.sort"
-					:label="!storeEntries.options.sort ? 'Sort' : 'Done'"
-				/>
+        
+        <q-btn
+          v-if="$route.fullPath === '/'"
+          @click="storeEntries.options.sort = !storeEntries.options.sort"
+          no-caps
+          :label="!storeEntries.options.sort ? 'Sort' : 'Done'"
+          dense
+          flat
+        />
 
       </q-toolbar>
     </q-header>
 
     <q-drawer
       v-model="leftDrawerOpen"
-      class="bg-primary"
-      :width="250"
-      :breakpoint="767"
       show-if-above
+      :breakpoint="767"
+      :width="250"
       bordered
+      class="bg-primary"
     >
       <q-list>
         <q-item-label
-          class="text-white"
           header
+          class="text-white"
         >
           Navigation
         </q-item-label>
-
         <NavLink
           v-for="link in navLinks"
-          :key="link.title"
           v-bind="link"
+          :key="link.title"
         />
       </q-list>
     </q-drawer>

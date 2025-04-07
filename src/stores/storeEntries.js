@@ -37,11 +37,11 @@ export const useStoreEntries = defineStore('entries', () => {
 
   const entriesLoaded = ref(false)
 
-	const options = reactive({
-		sort: false
-	})
+  const options = reactive({
+    sort: false
+  })
 
-	const balance = computed(() => {
+  const balance = computed(() => {
     /*
     let balance = 0
     entries.value.forEach(entry => {
@@ -59,9 +59,9 @@ export const useStoreEntries = defineStore('entries', () => {
     }, 0)
   })
 
-	const balancePaid = computed(() => {
+  const balancePaid = computed(() => {
     return entries.value.reduce((accumulator, { amount, paid }) => {
-			return paid ? accumulator + amount : accumulator
+      return paid ? accumulator + amount : accumulator
     }, 0)
   })
 
@@ -115,20 +115,20 @@ export const useStoreEntries = defineStore('entries', () => {
     await updateDoc(doc(entriesCollectionRef, entryId), updates)
   }
 
-	const sortEnd = ({ oldIndex, newIndex }) => {
-		const movedEntry = entries.value[oldIndex]
-		entries.value.splice(oldIndex, 1)
-		entries.value.splice(newIndex, 0, movedEntry)
-	}
+  const sortEnd = ({ oldIndex, newIndex }) => {
+    const movedEntry = entries.value[oldIndex]
+    entries.value.splice(oldIndex, 1)
+    entries.value.splice(newIndex, 0, movedEntry)
+  }
 
 
-	/*
-		helpers
-	*/
+  /*
+    helpers
+  */
 
-	const getEntryIndexById = entryId => {
-		return entries.value.findIndex(entry => entry.id === entryId)
-	}
+  const getEntryIndexById = entryId => {
+    return entries.value.findIndex(entry => entry.id === entryId)
+  }
 
   const removeSlideItemIfExists = entryId => {
     /* hacky fix: 
@@ -144,23 +144,23 @@ export const useStoreEntries = defineStore('entries', () => {
 
 
   return { 
+    
+      // state
+    entries,
+    entriesLoaded,
+    options,
 		
-		// state
-		entries,
-		entriesLoaded,
-		options,
-		
-		// getters
-		balance,
-		balancePaid,
-		runningBalances,
-		
-		// actions
-		loadEntries,
-		addEntry,
-		deleteEntry,
-		updateEntry,
-		sortEnd,
-	}
+      // getters
+    balance,
+    balancePaid,
+    runningBalances,
+    
+      // actions
+    loadEntries,
+    addEntry,
+    deleteEntry,
+    updateEntry,
+    sortEnd,
+  }
 
 })

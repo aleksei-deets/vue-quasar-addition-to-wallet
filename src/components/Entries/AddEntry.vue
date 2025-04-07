@@ -1,41 +1,41 @@
 <template>
-	<q-form 
-		@submit="addEntryFormSubmit"
-		class="row q-px-sm q-pb-sm q-col-gutter-sm bg-primary"
-	>
-		<div class="col">
-			<q-input 
-				v-model="addEntryForm.name"
-				ref="nameRef"
-				placeholder="Name"
-				:bg-color="useLightOrDark('white', 'black')"
-				v-select-all
-				outlined
-				dense
-			/>
-		</div>
-		<div class="col">
-			<q-input
-				v-model.number="addEntryForm.amount"
-				input-class="text-right"
-				placeholder="Amount"
-				:bg-color="useLightOrDark('white', 'black')"
-				type="number"
-				step="0.01"
-				v-select-all
-				outlined
-				dense
-			/>
-		</div>
-		<div class="col col-auto">
-			<q-btn 
-				color="primary"
-				icon="add"
-				type="submit"
-				round
-			/>
-		</div>
-	</q-form>
+  <q-form 
+    @submit="addEntryFormSubmit"
+    class="row q-px-sm q-pb-sm q-col-gutter-sm bg-primary"
+  >
+    <div class="col">
+      <q-input 
+        ref="nameRef"
+        v-model="addEntryForm.name"
+        placeholder="Name"
+        v-select-all
+        dense
+        outlined
+        :bg-color="useLightOrDark('white', 'black')"
+      />
+    </div>
+    <div class="col">
+      <q-input
+        v-model.number="addEntryForm.amount"
+        placeholder="Amount"
+        v-select-all
+        type="number"
+        step="0.01"
+        dense
+        outlined
+        input-class="text-right"
+        :bg-color="useLightOrDark('white', 'black')"
+      />
+    </div>
+    <div class="col col-auto">
+      <q-btn 
+        type="submit"
+        icon="add"
+        round
+        color="primary"
+      />
+    </div>
+  </q-form>
 </template>
 
 <script setup>
@@ -46,26 +46,25 @@ import vSelectAll from 'src/directives/directiveSelectAll'
 
 const storeEntries = useStoreEntries()
 
-
 const nameRef = ref(null)
 
 const addEntryFormDefault = {
-	name: '',
-	amount: null
+  name: '',
+  amount: null
 }
 
 const addEntryForm = reactive({
-	...addEntryFormDefault
+  ...addEntryFormDefault
 })
 
 const addEntryFormReset = () => {
-	Object.assign(addEntryForm, addEntryFormDefault)
-	nameRef.value.focus()
+  Object.assign(addEntryForm, addEntryFormDefault)
+  nameRef.value.focus()
 }
 
 const addEntryFormSubmit = () => {
-	storeEntries.addEntry(addEntryForm)
-	addEntryFormReset()
+  storeEntries.addEntry(addEntryForm)
+  addEntryFormReset()
 }
 
 </script>

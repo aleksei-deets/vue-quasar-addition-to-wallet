@@ -4,12 +4,12 @@ import { Dark, LocalStorage } from 'quasar'
 
 export const useStoreSettings = defineStore('settings', () => {
 
-	const settings = reactive({
-		promptToDelete: true,
-		showRunningBalance: false,
-		currencySymbol: '$',
-		darkMode: false	// false | true | "auto"
-	})
+  const settings = reactive({
+    promptToDelete: true,
+    showRunningBalance: false,
+    currencySymbol: '$',
+    darkMode: false	// false | true | "auto"
+  })
 
   watch(() => settings.darkMode, value => {
     // console.log('value : ', value)
@@ -30,11 +30,10 @@ export const useStoreSettings = defineStore('settings', () => {
   }
 
   return {
-
-    // state
+      // state
     settings,
 
-    // actions
+      // actions
     loadSettings
   }
 })

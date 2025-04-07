@@ -20,6 +20,6 @@ onMounted(() => {
 })
 
 window.addEventListener('contextmenu', e => {
-	e.preventDefault()
+  e.preventDefault()
 })
 </script>
