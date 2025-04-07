@@ -8,30 +8,34 @@ const entriesCollectionRef = collection(db, 'entries')
 
 export const useStoreEntries = defineStore('entries', () => {
 
-	const entries = ref([
+  const entries = ref([
     // {
     //   id: 'id0',
     //   name: 'Salary',
     //   amount: 4999.99,
-    //   paid: false
+    //   paid: false,
+    //   order: 1
     // },
     // {
     //   id: 'id1',
     //   name: 'Rent',
     //   amount: -999,
-    //   paid: false
+    //   paid: false,
+    //   order: 2
     // },
     // {
     //   id: 'id2',
     //   name: 'Phone',
     //   amount: -14.99,
-    //   paid: false
+    //   paid: false,
+    //   order: 3
     // },
     // {
     //   id: 'id3',
     //   name: 'Unknown',
     //   amount: 0,
-    //   paid: false
+    //   paid: false,
+    //   order: 4
     // },
   ])
 
@@ -39,6 +43,10 @@ export const useStoreEntries = defineStore('entries', () => {
 
   const options = reactive({
     sort: false
+  })
+
+  const entriesOrdered = computed(() => {
+    return entries.value.sort((a, b) => a.order - b.order)
   })
 
   const balance = computed(() => {
@@ -151,6 +159,7 @@ export const useStoreEntries = defineStore('entries', () => {
     options,
 		
       // getters
+    entriesOrdered,
     balance,
     balancePaid,
     runningBalances,
