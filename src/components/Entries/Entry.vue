@@ -28,7 +28,7 @@
           { 'text-strike' : entry.paid }
         ]"
       >
-        {{ entry.name }} ({{ entry.order }})
+        {{ entry.name }}
         <!-- in <q-popup-edit> component use :model-value instead v-model. 
               To prevent the possibility of changing the data in the Pinia store. -->
         <!-- To Fix issue with offset style prop in QPopupEdit component
