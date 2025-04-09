@@ -25,7 +25,7 @@
             autocomplete="email"
             filled
             class="q-mb-md"
-            bg-color="white"
+            :bg-color="useLightOrDark('white', 'black')"
           />
           <q-input
             label="Password"
@@ -33,7 +33,7 @@
             autocomplete="current-password"
             filled
             class="q-mb-md"
-            bg-color="white"
+            :bg-color="useLightOrDark('white', 'black')"
           />
           <q-btn
             label="Submit"
@@ -52,6 +52,7 @@
 <script setup>
 import { ref } from 'vue'
 import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
+import { useLightOrDark } from 'src/use/useLightOrDark'
 
 const tab = ref('login')
 
