@@ -13,12 +13,7 @@
           round
         />
         
-        <q-toolbar-title>
-          <div class="absolute-center">
-            <q-icon name="savings" />
-            Moneyballs {{ $q.version }}
-          </div>
-        </q-toolbar-title>
+        <ToolbarTitle />
         
         <q-btn
           v-if="$route.fullPath === '/'"
@@ -65,6 +60,7 @@
 import { ref } from 'vue'
 import { useStoreEntries } from 'src/stores/storeEntries'
 import NavLink from 'components/Nav/NavLink.vue'
+import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 import { useLightOrDark } from 'src/use/useLightOrDark'
 
 defineOptions({
