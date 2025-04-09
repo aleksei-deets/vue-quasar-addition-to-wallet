@@ -36,7 +36,7 @@
             :bg-color="useLightOrDark('white', 'black')"
           />
           <q-btn
-            label="Submit"
+            :label="submitButtonTitle"
             to="/"
             no-caps
             outline
@@ -50,10 +50,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 import { useLightOrDark } from 'src/use/useLightOrDark'
 
 const tab = ref('login')
+
+const submitButtonTitle = computed(() => {
+  return tab.value === 'login' ? 'Login' : 'Register'
+})
 
 </script>
