@@ -23,7 +23,6 @@
           dense
           flat
         />
-
       </q-toolbar>
     </q-header>
 
@@ -42,11 +41,32 @@
         >
           Navigation
         </q-item-label>
+        
         <NavLink
           v-for="link in navLinks"
           v-bind="link"
           :key="link.title"
         />
+        
+        <q-separator spaced />
+        
+        <q-item
+          to="/auth"
+          clickable
+          tag="a"
+          class="text-white"
+        >
+          <q-item-section avatar>
+            <q-icon name="logout" />
+          </q-item-section>
+          
+          <q-item-section>
+            <q-item-label>
+              Log out
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        
       </q-list>
     </q-drawer>
 
