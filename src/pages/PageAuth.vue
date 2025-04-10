@@ -55,11 +55,14 @@
 
 <script setup>
 import { ref, reactive, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 import { useLightOrDark } from 'src/use/useLightOrDark'
 
 const $q = useQuasar()
+
+const router = useRouter()
 
 const tab = ref('login')
 
@@ -91,6 +94,7 @@ const formSubmitSuccess = () => {
   else {
     console.log('Login user with these credentials:', credentials)
   }
+  router.push('/')
 }
 
 </script>
