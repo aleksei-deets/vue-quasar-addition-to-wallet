@@ -1,9 +1,9 @@
 <template>
   <q-item
+    :to="props.link"
+    tag="a"
     clickable
     class="text-white"
-    tag="a"
-    :to="props.link"
   >
     <q-item-section
       v-if="props.icon"
@@ -28,15 +28,14 @@ const props = defineProps({
     type: String,
     required: true
   },
-
   link: {
     type: String,
     default: '#'
   },
-
   icon: {
     type: String,
     default: ''
   }
 })
+
 </script>

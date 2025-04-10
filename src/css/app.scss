@@ -23,35 +23,35 @@
   }
 }
 
-/*  Number inputs   */
+/*  Number inputs  */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   margin-left: 10px;
 }
 
-/*	QPopupEdit component buttons	*/
+/*  QPopupEdit component buttons  */
 .q-popup-edit__buttons {
-	.q-btn {
-		text-transform: none;
-	}
+  .q-btn {
+    text-transform: none;
+  }
 }
 
-/*	Entries	*/
+/*  Entries  */
 .entries {
-	.q-slide-item {
-		border: 1px solid rgba(0, 0, 0, 0.12);
-		.body--dark & {
-			border: 1px solid rgba(255, 255, 255, 0.2);
-		}
-		&:not(:first-child) { // So this is going to select all of our q-slide-items within this entries element except the first child.
-			margin-top: -1px;
-		}
-	}
-	.sortable-ghost {
-		opacity: 0;
-	}
-	.running-balance {
-		right: -5px;
-		bottom: -9px;
-	}
+  .q-slide-item {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    .body--dark & {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    &:not(:first-child) { // So this is going to select all of our q-slide-items within this Entries element except the first child.
+      margin-top: -1px;
+    }
+  }
+  .sortable-ghost {
+    opacity: 0;
+  }
+  .running-balance {
+    right: -5px;
+    bottom: -9px;
+  }
 }

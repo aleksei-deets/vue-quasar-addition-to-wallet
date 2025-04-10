@@ -1,33 +1,33 @@
 import { defineStore } from 'pinia'
-import { ref, reactive, computed , watch, nextTick } from 'vue'
+import { ref, reactive, computed, watch, nextTick } from 'vue'
 import { uid, Notify, LocalStorage } from 'quasar'
 
 export const useStoreEntries = defineStore('entries', () => {
 
-	const entries = ref([
+  const entries = ref([
     {
       id: 'id0',
       name: 'Salary',
       amount: 4999.99,
-			paid: false
+      paid: false
     },
     {
       id: 'id1',
       name: 'Rent',
       amount: -999,
-			paid: false
+      paid: false
     },
     {
       id: 'id2',
       name: 'Phone',
       amount: -14.99,
-			paid: false
+      paid: false
     },
     {
       id: 'id3',
       name: 'Unknown',
       amount: 0,
-			paid: false
+      paid: false
     },
   ])
 
@@ -35,15 +35,15 @@ export const useStoreEntries = defineStore('entries', () => {
     saveEntries()
   })
 
-	const options = reactive({
-		sort: false
-	})
+  const options = reactive({
+    sort: false
+  })
 
-	const balance = computed(() => {
+  const balance = computed(() => {
     /*
     let balance = 0
     entries.value.forEach(entry => {
-      //console.log('entry: ', entry)
+      // console.log('entry: ', entry)
       balance = balance + entry.amount
     })
     return balance
@@ -51,15 +51,15 @@ export const useStoreEntries = defineStore('entries', () => {
 
     // 2 способ решения:
     return entries.value.reduce((accumulator, { amount }) => {
-      //console.log('accumulator: ', accumulator)
-      //console.log('amount: ', amount)
+      // console.log('accumulator: ', accumulator)
+      // console.log('amount: ', amount)
       return accumulator + amount
     }, 0)
   })
 
-	const balancePaid = computed(() => {
+  const balancePaid = computed(() => {
     return entries.value.reduce((accumulator, { amount, paid }) => {
-			return paid ? accumulator + amount : accumulator
+      return paid ? accumulator + amount : accumulator
     }, 0)
   })
 
@@ -78,20 +78,20 @@ export const useStoreEntries = defineStore('entries', () => {
     return runningBalances
   })
 
-	const addEntry = addEntryForm => {
-		// const newEntry = {
+  const addEntry = addEntryForm => {
+    // const newEntry = {
     //   id: uid(),
     //   name: addEntryForm.name,
     //   amount: addEntryForm.amount
     // }
-    //console.log('newEntry: ', newEntry)
-		const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false })
-		entries.value.push(newEntry)
-	}
+    // console.log('newEntry: ', newEntry)
+    const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false })
+    entries.value.push(newEntry)
+  }
 
-	const deleteEntry = entryId => {
+  const deleteEntry = entryId => {
     const index = getEntryIndexById(entryId)
-    //console.log('index: ', index)
+    // console.log('index: ', index)
     entries.value.splice(index, 1)
     removeSlideItemIfExists(entryId)
     Notify.create({
@@ -100,16 +100,16 @@ export const useStoreEntries = defineStore('entries', () => {
     })
   }
 
-	const updateEntry = (entryId, updates) => {
-		const index = getEntryIndexById(entryId)
-		Object.assign(entries.value[index], updates)
-	}
+  const updateEntry = (entryId, updates) => {
+    const index = getEntryIndexById(entryId)
+    Object.assign(entries.value[index], updates)
+  }
 
-	const sortEnd = ({ oldIndex, newIndex }) => {
-		const movedEntry = entries.value[oldIndex]
-		entries.value.splice(oldIndex, 1)
-		entries.value.splice(newIndex, 0, movedEntry)
-	}
+  const sortEnd = ({ oldIndex, newIndex }) => {
+    const movedEntry = entries.value[oldIndex]
+    entries.value.splice(oldIndex, 1)
+    entries.value.splice(newIndex, 0, movedEntry)
+  }
 
   const saveEntries = () => {
     LocalStorage.set('entries', entries.value)
@@ -122,13 +122,13 @@ export const useStoreEntries = defineStore('entries', () => {
 
 
 
-	/*
-		helpers
-	*/
+  /*
+    helpers
+  */
 
-	const getEntryIndexById = entryId => {
-		return entries.value.findIndex(entry => entry.id === entryId)
-	}
+  const getEntryIndexById = entryId => {
+    return entries.value.findIndex(entry => entry.id === entryId)
+  }
 
   const removeSlideItemIfExists = entryId => {
     /* hacky fix: 
@@ -144,22 +144,21 @@ export const useStoreEntries = defineStore('entries', () => {
 
 
   return { 
-		
-		// state
-		entries,
-		options,
-		
-		// getters
-		balance,
-		balancePaid,
-		runningBalances,
-		
-		// actions
-		addEntry,
-		deleteEntry,
-		updateEntry,
-		sortEnd,
-		loadEntries
-	}
+		  // state
+    entries,
+    options,
+    
+      // getters
+    balance,
+    balancePaid,
+    runningBalances,
+    
+      // actions
+    addEntry,
+    deleteEntry,
+    updateEntry,
+    sortEnd,
+    loadEntries
+  }
 
 })
