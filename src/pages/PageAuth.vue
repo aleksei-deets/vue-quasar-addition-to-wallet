@@ -20,6 +20,7 @@
       <q-card-section>
         <q-form>
           <q-input
+            v-model="credentials.email"
             label="Email"
             type="email"
             autocomplete="email"
@@ -28,6 +29,7 @@
             :bg-color="useLightOrDark('white', 'black')"
           />
           <q-input
+            v-model="credentials.password"
             label="Password"
             type="password"
             autocomplete="current-password"
@@ -50,11 +52,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 import { useLightOrDark } from 'src/use/useLightOrDark'
 
 const tab = ref('login')
+
+const credentials = reactive({
+	email: '',
+	password: ''
+})
 
 const submitButtonTitle = computed(() => {
   return tab.value === 'login' ? 'Login' : 'Register'
