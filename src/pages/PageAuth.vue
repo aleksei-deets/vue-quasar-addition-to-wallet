@@ -18,7 +18,9 @@
       </q-card-section>
       
       <q-card-section>
-        <q-form>
+        <q-form
+          @submit="formSubmit"
+        >
           <q-input
             v-model="credentials.email"
             label="Email"
@@ -39,7 +41,7 @@
           />
           <q-btn
             :label="submitButtonTitle"
-            to="/"
+            type="submit"
             no-caps
             outline
             class="full-width"
@@ -67,4 +69,7 @@ const submitButtonTitle = computed(() => {
   return tab.value === 'login' ? 'Login' : 'Register'
 })
 
+const formSubmit = () => {
+  console.log('form submitted')
+}
 </script>
