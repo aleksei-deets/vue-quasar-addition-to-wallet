@@ -55,8 +55,11 @@
 
 <script setup>
 import { ref, reactive, computed } from 'vue'
+import { useQuasar } from 'quasar'
 import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 import { useLightOrDark } from 'src/use/useLightOrDark'
+
+const $q = useQuasar()
 
 const tab = ref('login')
 
@@ -70,6 +73,11 @@ const submitButtonTitle = computed(() => {
 })
 
 const formSubmit = () => {
-  console.log('form submitted')
+  if (!credentials.email || !credentials.password) {
+    $q.dialog({
+      title: 'Error',
+      message: 'Please enter an email & password'
+    })
+  }
 }
 </script>
