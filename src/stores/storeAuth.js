@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { Dialog } from 'quasar'
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from 'src/firebase/firebase'
 
 export const useStoreAuth = defineStore('auth', () => {
@@ -12,10 +12,18 @@ export const useStoreAuth = defineStore('auth', () => {
         console.log('user : ', user)
       })
       .catch((error) => {
-        Dialog.create({
-          title: 'Error',
-          message: error.message
-        })
+        showFirebaseError(error.message)
+      });
+  }
+
+  const loginUser = ({ email, password }) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        console.log('user : ', user)
+      })
+      .catch((error) => {
+        showFirebaseError(error.message)
       });
   }
 
@@ -23,16 +31,27 @@ export const useStoreAuth = defineStore('auth', () => {
     signOut(auth).then(() => {
       console.log('user was logged out')
     }).catch((error) => {
-      Dialog.create({
-        title: 'Error',
-        message: error.message
-      })
+      showFirebaseError(error.message)
     });
   }
+
+
+  /*
+    helpers
+  */
+
+  const showFirebaseError = message => {
+    Dialog.create({
+      title: 'Error',
+      message
+    })
+  }
+
 
   return { 
       //actions
     registerUser,
+    loginUser,
     logoutUser
   }
 

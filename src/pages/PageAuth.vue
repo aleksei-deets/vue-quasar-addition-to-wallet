@@ -67,7 +67,7 @@ const router = useRouter()
 
 const storeAuth = useStoreAuth()
 
-const tab = ref('register') // TODO: change this back to 'login'
+const tab = ref('login')
 
 const credentials = reactive({
 	email: '',
@@ -95,7 +95,7 @@ const formSubmitSuccess = () => {
     storeAuth.registerUser(credentials)
   }
   else {
-    console.log('Login user with these credentials:', credentials)
+    storeAuth.loginUser(credentials)
   }
   router.push('/')
 }
