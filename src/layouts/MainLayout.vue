@@ -51,6 +51,7 @@
         <q-separator spaced />
         
         <q-item
+          @click="storeAuth.logoutUser"
           to="/auth"
           clickable
           tag="a"
@@ -79,6 +80,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useStoreEntries } from 'src/stores/storeEntries'
+import { useStoreAuth } from 'src/stores/storeAuth'
 import NavLink from 'components/Nav/NavLink.vue'
 import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 import { useLightOrDark } from 'src/use/useLightOrDark'
@@ -87,7 +89,8 @@ defineOptions({
   name: 'MainLayout'
 })
 
-const storeEntries = useStoreEntries()
+const storeEntries = useStoreEntries(),
+      storeAuth = useStoreAuth()
 
 const navLinks = [
   {
@@ -107,4 +110,5 @@ const leftDrawerOpen = ref(false)
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
 </script>
