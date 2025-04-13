@@ -1,9 +1,23 @@
 import { defineStore } from 'pinia'
 import { Dialog } from 'quasar'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 import { auth } from 'src/firebase/firebase'
+import { useStoreEntries } from 'src/stores/storeEntries'
 
 export const useStoreAuth = defineStore('auth', () => {
+
+  const init = () => {
+    const storeEntries = useStoreEntries()
+    
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('User logged in: ', user)
+        storeEntries.loadEntries()
+      } else {
+        console.log('User logged out: ', user)
+      }
+    })
+  }
 
   const registerUser = ({ email, password }) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -50,6 +64,7 @@ export const useStoreAuth = defineStore('auth', () => {
 
   return { 
       //actions
+    init,
     registerUser,
     loginUser,
     logoutUser

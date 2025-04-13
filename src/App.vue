@@ -5,18 +5,18 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useStoreSettings } from './stores/storeSettings'
-import { useStoreEntries } from './stores/storeEntries'
+import { useStoreAuth } from './stores/storeAuth'
 
 defineOptions({
   name: 'App'
 });
 
 const storeSettings = useStoreSettings(),
-      storeEntries = useStoreEntries()
+      storeAuth = useStoreAuth()
 
 onMounted(() => {
+  storeAuth.init()
   storeSettings.loadSettings()
-  storeEntries.loadEntries()
 })
 
 window.addEventListener('contextmenu', e => {
