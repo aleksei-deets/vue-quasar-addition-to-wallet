@@ -55,15 +55,12 @@
 
 <script setup>
 import { ref, reactive, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useStoreAuth } from 'src/stores/storeAuth'
 import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 import { useLightOrDark } from 'src/use/useLightOrDark'
 
 const $q = useQuasar()
-
-const router = useRouter()
 
 const storeAuth = useStoreAuth()
 
@@ -97,7 +94,6 @@ const formSubmitSuccess = () => {
   else {
     storeAuth.loginUser(credentials)
   }
-  router.push('/')
 }
 
 </script>

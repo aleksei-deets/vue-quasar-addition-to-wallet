@@ -52,7 +52,6 @@
         
         <q-item
           @click="storeAuth.logoutUser"
-          to="/auth"
           clickable
           tag="a"
           class="text-white"
