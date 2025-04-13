@@ -65,6 +65,13 @@
             <q-item-label>
               Log out
             </q-item-label>
+            <q-item-label 
+              v-if="storeAuth.userDetails.email"
+              caption
+              class="text-white"
+            >
+              {{ storeAuth.userDetails.email }}
+            </q-item-label>
           </q-item-section>
         </q-item>
         
