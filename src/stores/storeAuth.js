@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { reactive } from 'vue'
 import { Dialog } from 'quasar'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 import { auth } from 'src/firebase/firebase'
@@ -6,15 +7,27 @@ import { useStoreEntries } from 'src/stores/storeEntries'
 
 export const useStoreAuth = defineStore('auth', () => {
 
+  const userDetailsDefault = {
+    id: null,
+    email: null
+  }
+
+  const userDetails = reactive({
+    ...userDetailsDefault
+  })
+
   const init = () => {
     const storeEntries = useStoreEntries()
     
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('User logged in: ', user)
+        // console.log('User logged in: ', user)
+        userDetails.id = user.uid
+        userDetails.email = user.email
         storeEntries.loadEntries()
       } else {
-        console.log('User logged out: ', user)
+        // console.log('User logged out: ', user)
+        Object.assign(userDetails, userDetailsDefault)
       }
     })
   }
@@ -62,7 +75,9 @@ export const useStoreAuth = defineStore('auth', () => {
   }
 
 
-  return { 
+  return {
+      //state
+    userDetails,
       //actions
     init,
     registerUser,
