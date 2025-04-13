@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref, reactive, computed, nextTick } from 'vue'
 import { Notify } from 'quasar'
+import { useStoreAuth } from 'src/stores/storeAuth'
 import { collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
-const entriesCollectionRef = collection(db, 'users', 'v6sen6KGpcY1fESQT1ipRkHZY7r2', 'entries')
+let entriesCollectionRef = null
 
 export const useStoreEntries = defineStore('entries', () => {
 
@@ -87,6 +88,12 @@ export const useStoreEntries = defineStore('entries', () => {
   
     return runningBalances
   })
+
+  const init = () => {
+    const storeAuth = useStoreAuth()
+    entriesCollectionRef = collection(db, 'users', storeAuth.userDetails.id, 'entries')
+    loadEntries()
+  }
 
   const loadEntries = async () => {
     onSnapshot(entriesCollectionRef, (querySnapshot) => {
@@ -187,6 +194,7 @@ export const useStoreEntries = defineStore('entries', () => {
     runningBalances,
     
       // actions
+    init,
     loadEntries,
     addEntry,
     deleteEntry,

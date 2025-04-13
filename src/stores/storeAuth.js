@@ -27,7 +27,7 @@ export const useStoreAuth = defineStore('auth', () => {
         userDetails.id = user.uid
         userDetails.email = user.email
         router.push('/')
-        storeEntries.loadEntries()
+        storeEntries.init()
       } else {
         // console.log('User logged out: ', user)
         Object.assign(userDetails, userDetailsDefault)
