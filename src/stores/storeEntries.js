@@ -96,8 +96,8 @@ export const useStoreEntries = defineStore('entries', () => {
   }
 
   const loadEntries = async () => {
+    entriesLoaded.value = false
     onSnapshot(entriesCollectionRef, (querySnapshot) => {
-      entriesLoaded.value = false
       let entriesFB = []
       querySnapshot.forEach((doc) => {
         let entry = doc.data()
