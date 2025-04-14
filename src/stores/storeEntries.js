@@ -111,6 +111,10 @@ export const useStoreEntries = defineStore('entries', () => {
     })
   }
 
+  const clearEntries = () => {
+    entries.value = []
+  }
+
   const addEntry = async addEntryForm => {
     const newEntry = Object.assign({}, addEntryForm, 
       { 
@@ -196,6 +200,7 @@ export const useStoreEntries = defineStore('entries', () => {
       // actions
     init,
     loadEntries,
+    clearEntries,
     addEntry,
     deleteEntry,
     updateEntry,
